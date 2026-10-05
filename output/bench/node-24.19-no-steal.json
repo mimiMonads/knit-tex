@@ -1,0 +1,55 @@
+{
+  "input": "/home/mimi/Downloads/knit-tex/examples/pride-and-prejudice.tex",
+  "runs": 5,
+  "cores": 8,
+  "results": [
+    {
+      "config": "knitting x1",
+      "cold": 803.510931,
+      "total": 476.3950189999998,
+      "paragraphs": 270.53536199999996,
+      "render": 145.32954500000005,
+      "cpu": 657.757,
+      "cpuPercent": 138.21177707397126,
+      "stallMax": 58.764764000000014,
+      "stallP99": 2.3772160000000895,
+      "identical": true
+    },
+    {
+      "config": "knitting x2",
+      "cold": 596.3293659999999,
+      "total": 302.18577599999935,
+      "paragraphs": 167.05435699999998,
+      "render": 83.0899670000008,
+      "cpu": 698.391,
+      "cpuPercent": 222.0854596294906,
+      "stallMax": 58.75947300000007,
+      "stallP99": 5.04424999999992,
+      "identical": true
+    },
+    {
+      "config": "knitting x3",
+      "cold": 581.1587330000002,
+      "total": 258.6787009999998,
+      "paragraphs": 134.30774700000075,
+      "render": 64.513825,
+      "cpu": 741.25,
+      "cpuPercent": 288.338344347955,
+      "stallMax": 64.8645660000002,
+      "stallP99": 9.674410999999964,
+      "identical": true
+    },
+    {
+      "config": "knitting x4",
+      "cold": 683.1794120000004,
+      "total": 248.45740400000068,
+      "paragraphs": 126.36024299999917,
+      "render": 55.66947599999912,
+      "cpu": 790.561,
+      "cpuPercent": 350.51509873328774,
+      "stallMax": 59.950057000000015,
+      "stallP99": 9.739277999999103,
+      "identical": true
+    }
+  ]
+}

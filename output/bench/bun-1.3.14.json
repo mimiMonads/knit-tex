@@ -1,0 +1,75 @@
+{
+  "input": "examples/pride-and-prejudice.tex",
+  "runs": 5,
+  "cores": 4,
+  "results": [
+    {
+      "config": "main thread",
+      "cold": 1044.6762549999999,
+      "total": 777.3878380000006,
+      "paragraphs": 420.80008399999997,
+      "render": 275.15229899999986,
+      "cpu": 975.335,
+      "stallMax": 778.3699849999994,
+      "stallP99": 778.3699849999994,
+      "identical": true
+    },
+    {
+      "config": "knitting x1",
+      "cold": 1358.4561199999998,
+      "total": 884.7533459999995,
+      "paragraphs": 472.7303830000001,
+      "render": 334.15125199999966,
+      "cpu": 1413.601,
+      "stallMax": 78.90688399999999,
+      "stallP99": 5.143725999999333,
+      "identical": true
+    },
+    {
+      "config": "knitting x2",
+      "cold": 879.5538039999992,
+      "total": 494.4503599999989,
+      "paragraphs": 247.27172299999984,
+      "render": 169.9583820000007,
+      "cpu": 1258.041,
+      "stallMax": 71.81064200000037,
+      "stallP99": 8.290866000001188,
+      "identical": true
+    },
+    {
+      "config": "knitting x3",
+      "cold": 1001.4756320000015,
+      "total": 506.0904210000008,
+      "paragraphs": 295.6020830000016,
+      "render": 135.90341399999852,
+      "cpu": 1424.448,
+      "stallMax": 69.93802900000082,
+      "stallP99": 18.485541000000012,
+      "identical": true
+    },
+    {
+      "config": "piscina x3",
+      "cold": 1048.2943689999993,
+      "total": 683.8416860000034,
+      "paragraphs": 448.1389930000005,
+      "render": 168.80041300000084,
+      "cpu": 1721.724,
+      "stallMax": 70.1405810000033,
+      "stallP99": 4.919975000000704,
+      "identical": true,
+      "note": "close() did not settle within 5 s"
+    },
+    {
+      "config": "piscina x3, 32/worker",
+      "cold": 963.8951219999981,
+      "total": 511.58359100000234,
+      "paragraphs": 311.1485790000006,
+      "render": 127.06384099999923,
+      "cpu": 1545.253,
+      "stallMax": 79.33858500000133,
+      "stallP99": 77.46683100000155,
+      "identical": true,
+      "note": "close() did not settle within 5 s"
+    }
+  ]
+}

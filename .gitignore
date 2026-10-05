@@ -1,0 +1,5 @@
+node_modules/
+examples/cache/
+examples/pride-and-prejudice.tex
+*.pdf
+*.tmp

@@ -1,0 +1,127 @@
+{
+  "input": "/home/mimi/Downloads/knit-tex/examples/pride-and-prejudice.tex",
+  "runs": 5,
+  "cores": 8,
+  "results": [
+    {
+      "config": "main thread",
+      "cold": 606.304535,
+      "total": 426.5569089999999,
+      "paragraphs": 228.67059000000017,
+      "render": 133.96195300000045,
+      "cpu": 508.545,
+      "cpuPercent": 117.80219293884633,
+      "stallMax": 427.1584949999999,
+      "stallP99": 427.1584949999999,
+      "identical": true
+    },
+    {
+      "config": "knitting x1",
+      "cold": 759.9064549999998,
+      "total": 448.3520719999997,
+      "paragraphs": 258.45634900000005,
+      "render": 137.85262800000055,
+      "cpu": 578.016,
+      "cpuPercent": 128.59548616308035,
+      "stallMax": 51.333520999999564,
+      "stallP99": 2.558635000000322,
+      "identical": true
+    },
+    {
+      "config": "knitting x2",
+      "cold": 587.8748300000007,
+      "total": 306.7600620000003,
+      "paragraphs": 158.83683399999973,
+      "render": 93.77414499999941,
+      "cpu": 677.861,
+      "cpuPercent": 228.58410427807564,
+      "stallMax": 55.35378900000069,
+      "stallP99": 4.246095999999852,
+      "identical": true
+    },
+    {
+      "config": "knitting x3",
+      "cold": 549.4882149999994,
+      "total": 250.08642599999985,
+      "paragraphs": 125.4953170000008,
+      "render": 59.647023999999874,
+      "cpu": 754.692,
+      "cpuPercent": 301.5259950085748,
+      "stallMax": 59.41966499999944,
+      "stallP99": 7.8936740000008285,
+      "identical": true
+    },
+    {
+      "config": "knitting x4",
+      "cold": 632.186717999999,
+      "total": 229.14393999999993,
+      "paragraphs": 118.9493910000001,
+      "render": 51.48711600000024,
+      "cpu": 871.173,
+      "cpuPercent": 383.93627837693464,
+      "stallMax": 60.705291000000216,
+      "stallP99": 7.87977299999875,
+      "identical": true
+    },
+    {
+      "config": "piscina x1",
+      "cold": 869.0155709999999,
+      "total": 653.5842240000002,
+      "paragraphs": 332.28230500000063,
+      "render": 267.69366400000035,
+      "cpu": 775.427,
+      "cpuPercent": 119.20061910590438,
+      "stallMax": 62.20292100000006,
+      "stallP99": 2.7162369999987277,
+      "identical": true
+    },
+    {
+      "config": "piscina x2",
+      "cold": 607.8597019999997,
+      "total": 431.5616289999998,
+      "paragraphs": 215.5217420000008,
+      "render": 148.56846199999927,
+      "cpu": 877.586,
+      "cpuPercent": 206.1798096685327,
+      "stallMax": 66.0130050000007,
+      "stallP99": 2.6828609999975015,
+      "identical": true
+    },
+    {
+      "config": "piscina x3",
+      "cold": 593.3298570000006,
+      "total": 376.1818459999995,
+      "paragraphs": 183.4058530000002,
+      "render": 125.13416700000016,
+      "cpu": 1028.581,
+      "cpuPercent": 279.0204679810672,
+      "stallMax": 61.34259700000257,
+      "stallP99": 3.552695999998832,
+      "identical": true
+    },
+    {
+      "config": "piscina x4",
+      "cold": 651.602130000003,
+      "total": 344.5015029999995,
+      "paragraphs": 168.8929390000012,
+      "render": 109.06075699999928,
+      "cpu": 1204.09,
+      "cpuPercent": 349.1522468964451,
+      "stallMax": 68.93531000000075,
+      "stallP99": 4.494195999999647,
+      "identical": true
+    },
+    {
+      "config": "piscina x4, 32/worker",
+      "cold": 597.5345190000007,
+      "total": 317.3062699999973,
+      "paragraphs": 139.79899600000135,
+      "render": 117.72452499999781,
+      "cpu": 1209.476,
+      "cpuPercent": 375.13984898663745,
+      "stallMax": 97.54307100000005,
+      "stallP99": 87.63259599999947,
+      "identical": true
+    }
+  ]
+}

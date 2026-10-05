@@ -1,0 +1,167 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper]{geometry}
+\usepackage{amsmath}
+
+% a macro, to show that \newcommand works
+\newcommand{\knit}{\textsf{knitting}}
+\newcommand{\term}[1]{\emph{#1}}
+
+\title{Typesetting on a Worker Pool}
+\author{knit-tex \and the \knit{} runtime}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This document was set by knit-tex, a small TeX-flavoured typesetter written in
+plain JavaScript. Every paragraph is broken into lines with the Knuth--Plass
+algorithm and hyphenated with Liang's patterns, the same two ideas that sit at
+the heart of \TeX. Each paragraph is an independent task, so the line breaking
+runs on a \knit{} worker pool while the main thread only parses the source,
+stacks lines onto pages and writes the file.
+\end{abstract}
+
+\section{Why paragraphs are a good unit of work}
+\label{sec:why}
+
+A paragraph is the natural grain of a typesetting job. Within it, every
+decision depends on every other: moving one word to the next line changes how
+loose or tight all the following lines can be, which is why a good line
+breaker looks at the paragraph as a whole instead of filling one line at a
+time. Across paragraphs, nothing is shared at all. That shape---tightly
+coupled inside, completely independent outside---is exactly what a worker pool
+wants.\footnote{Pages are the second unit of work: once lines are stacked onto
+pages, every page's content stream is generated and compressed in parallel too.}
+
+The cost per task is small. A typical paragraph of prose takes somewhere
+between a tenth of a millisecond and a few milliseconds to set, depending on
+its length and on how many hyphenation passes it needs. Work that fine-grained
+is where the overhead of a worker call matters most: if dispatching a task
+costs as much as running it, there is nothing to gain. That is the property of
+\knit{} this example leans on.
+
+\subsection{The algorithm in one breath}
+
+Knuth and Plass model a paragraph as a sequence of \term{boxes} (things that
+are printed), \term{glue} (space that can stretch or shrink) and
+\term{penalties} (places where a break is allowed but has a cost). For a line
+from breakpoint $a$ to breakpoint $b$ with natural width $w$, total stretch
+$Y$ and total shrink $Z$, the adjustment ratio is
+\begin{equation}
+  r = \frac{L - w}{Y} \quad\text{when } w < L, \qquad r = \frac{L - w}{Z} \quad\text{when } w > L,
+  \label{eq:ratio}
+\end{equation}
+where $L$ is the line width. The badness of the line is $100\,|r|^3$, and the
+demerits of a break combine badness with the penalty $p$ of the breakpoint:
+\[
+  d = (\ell + b)^2 + p^2 \qquad (p \geq 0).
+\]
+The optimal set of breaks minimises the sum of demerits over the whole
+paragraph, which the algorithm finds with dynamic programming over a small set
+of \term{active nodes}. Lines whose ratio in~\eqref{eq:ratio} falls below
+$-1$ would have to shrink more than the glue allows, so they are never
+chosen unless nothing else is possible.
+
+\subsection{What \TeX\ adds on top}
+
+The paper describes the core; \TeX\ adds the details that make the output look
+right, and knit-tex follows them closely:
+\begin{itemize}
+  \item three passes: first without hyphenation at a strict tolerance, then
+        with hyphenation, then an emergency pass that always succeeds;
+  \item four fitness classes, so a very loose line is not placed next to a
+        very tight one;
+  \item extra demerits for two hyphenated lines in a row, and for a
+        hyphen on the second-to-last line of a paragraph;
+  \item \TeX's own rule for hopeless paragraphs: when the last active node is
+        about to disappear, keep it and accept an overfull line, so a single
+        unbreakable word can never stop a document from being typeset.
+\end{itemize}
+
+\section{The pipeline}
+
+\begin{enumerate}
+  \item \textbf{Parse} the source on the main thread into blocks: paragraphs,
+        headings, lists, verbatim text and displayed equations.
+  \item \textbf{Set} every paragraph on the pool. A task receives styled runs
+        of text and returns positioned segments, one array per line.
+  \item \textbf{Stack} lines onto pages on the main thread, keeping headings
+        with what follows them and avoiding widows and orphans.
+  \item \textbf{Render} each page's content stream on the pool, compressed
+        with deflate.
+  \item \textbf{Write} the PDF: fonts, pages, bookmarks and the cross-reference
+        table.
+\end{enumerate}
+
+The tasks themselves are tiny wrappers, and they live in their own module so
+that workers only load what they run:
+\begin{verbatim}
+import { task } from "knitting";
+import { setParagraph } from "./paragraph.mjs";
+import { renderPageStream } from "./render.mjs";
+
+export const setParagraphTask = task({
+  f: (spec) => setParagraph(spec),
+});
+export const renderPageTask = task({
+  f: (page) => renderPageStream(page),
+});
+\end{verbatim}
+
+\subsection{Fonts without font files}
+
+PDF viewers must provide fourteen standard fonts, so knit-tex embeds none: it
+measures text with the Adobe font metrics for Times, Courier and Symbol,
+including kerning pairs such as ``AV'', ``To'' and ``We''. Characters outside
+the Windows-1252 encoding fall back to the Symbol font when it has them, which
+is how Greek letters such as $\alpha$, $\beta$ and $\Omega$, and operators such
+as $\leq$, $\infty$ and $\nabla$, reach the page. Accented names come through
+too: Erdős, Gödel, Dvořák, Ångström, naïve café.
+
+\subsection{Lists, quotes and descriptions}
+
+\begin{description}
+  \item[Boxes] are words, or the syllables of a word that can be hyphenated.
+  \item[Glue] is the space between words. Its stretch and shrink are a half
+        and a third of the space width, as in Computer Modern.
+  \item[Penalties] mark hyphenation points (cost 50) and forced breaks.
+\end{description}
+
+The benchmark novel opens with a sentence that every line breaker has to get
+right:
+\begin{quote}
+It is a truth universally acknowledged, that a single man in possession of a
+good fortune, must be in want of a wife.\\
+\hspace*{\fill}---Jane Austen, \emph{Pride and Prejudice} (1813)
+\end{quote}
+
+Nested lists use the same label styles as \LaTeX:
+\begin{enumerate}
+  \item First level, numbered.
+  \begin{enumerate}
+    \item Second level, lettered.
+    \item Another one, with an em dash---like this---and an en dash for
+          ranges such as pages 12--14.
+  \end{enumerate}
+  \item Back to the first level.
+\end{enumerate}
+
+\section{Results}
+
+Section~\ref{sec:why} argued that paragraphs are fine-grained work. The
+benchmark in the repository typesets \emph{Pride and Prejudice} (about 120{,}000
+words, two thousand paragraphs) on the main thread and on pools of one to three
+workers, and checks that every configuration produces a byte-identical
+PDF.\footnote{Determinism is a design goal: the writer stamps no dates, and
+floating-point layout runs the same code in every thread.} The output you are
+reading was produced the same way.
+
+\begin{thebibliography}{9}
+\bibitem{kp} Donald E. Knuth and Michael F. Plass. Breaking paragraphs into
+  lines. \emph{Software: Practice and Experience}, 11(11):1119--1184, 1981.
+\bibitem{liang} Franklin M. Liang. \emph{Word Hy-phen-a-tion by Com-put-er}.
+  PhD thesis, Stanford University, 1983.
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,33 @@
+{
+  "input": "/home/mimi/Downloads/knit-tex/examples/pride-and-prejudice.tex",
+  "cli": "/home/mimi/Downloads/knit-tex/src/cli.mjs",
+  "runtime": "node 24.19.0",
+  "runs": 5,
+  "cores": 8,
+  "results": [
+    {
+      "mode": "--host",
+      "executor": "main thread",
+      "total": 581.9,
+      "wall": 658.471667
+    },
+    {
+      "mode": "--threads 2",
+      "executor": "knitting x2",
+      "total": 665.7,
+      "wall": 756.0549349999992
+    },
+    {
+      "mode": "--threads 4",
+      "executor": "knitting x4",
+      "total": 715.2,
+      "wall": 806.9317740000006
+    },
+    {
+      "mode": "--threads auto",
+      "executor": "knitting x7",
+      "total": 935.6,
+      "wall": 1043.8751420000008
+    }
+  ]
+}

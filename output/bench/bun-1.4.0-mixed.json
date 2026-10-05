@@ -1,0 +1,120 @@
+{
+  "prideFile": "/home/mimi/Downloads/knit-tex/examples/pride-and-prejudice.tex",
+  "sawyerFile": "/home/mimi/Downloads/knit-tex/examples/tom-sawyer.tex",
+  "seed": 1729,
+  "runs": 5,
+  "workload": {
+    "total": 2115,
+    "pride": 1692,
+    "sawyer": 423,
+    "p50Chars": 181,
+    "p99Chars": 1621,
+    "maxChars": 14053
+  },
+  "results": [
+    {
+      "config": "knitting x1, stealing on",
+      "threads": 1,
+      "scheduler": "knitting",
+      "stealing": true,
+      "cold": 526.4642620000001,
+      "total": 238.8637779999999,
+      "cpu": 359.678,
+      "cpuPercent": 149.72645921105618,
+      "stallMax": 2.0416109999998753,
+      "stallP99": 1.1976740000000063,
+      "identical": true
+    },
+    {
+      "config": "knitting x1, stealing off",
+      "threads": 1,
+      "scheduler": "knitting",
+      "stealing": false,
+      "cold": 490.0311690000003,
+      "total": 245.3097359999997,
+      "cpu": 359.086,
+      "cpuPercent": 147.2851096473247,
+      "stallMax": 2.6659199999999146,
+      "stallP99": 1.5943080000001828,
+      "identical": true
+    },
+    {
+      "config": "knitting x2, stealing on",
+      "threads": 2,
+      "scheduler": "knitting",
+      "stealing": true,
+      "cold": 439.4693679999996,
+      "total": 160.17853000000014,
+      "cpu": 432.66,
+      "cpuPercent": 282.9753801852004,
+      "stallMax": 3.72653900000023,
+      "stallP99": 1.9164110000001529,
+      "identical": true
+    },
+    {
+      "config": "knitting x2, stealing off",
+      "threads": 2,
+      "scheduler": "knitting",
+      "stealing": false,
+      "cold": 507.1247800000001,
+      "total": 161.93810600000052,
+      "cpu": 420.208,
+      "cpuPercent": 279.45404424969695,
+      "stallMax": 3.0414920000002894,
+      "stallP99": 2.526889000000665,
+      "identical": true
+    },
+    {
+      "config": "knitting x3, stealing on",
+      "threads": 3,
+      "scheduler": "knitting",
+      "stealing": true,
+      "cold": 494.2186580000007,
+      "total": 155.72298599999976,
+      "cpu": 731.474,
+      "cpuPercent": 454.14505896848584,
+      "stallMax": 3.394433999999819,
+      "stallP99": 2.2394320000003063,
+      "identical": true
+    },
+    {
+      "config": "knitting x3, stealing off",
+      "threads": 3,
+      "scheduler": "knitting",
+      "stealing": false,
+      "cold": 501.4704870000005,
+      "total": 137.94967799999904,
+      "cpu": 591.055,
+      "cpuPercent": 397.4623161511247,
+      "stallMax": 4.19677000000047,
+      "stallP99": 2.8756910000010976,
+      "identical": true
+    },
+    {
+      "config": "knitting x4, stealing on",
+      "threads": 4,
+      "scheduler": "knitting",
+      "stealing": true,
+      "cold": 571.2057409999998,
+      "total": 142.42225399999916,
+      "cpu": 821.388,
+      "cpuPercent": 565.5241660754688,
+      "stallMax": 5.046843000000081,
+      "stallP99": 2.8530899999987014,
+      "identical": true
+    },
+    {
+      "config": "knitting x4, stealing off",
+      "threads": 4,
+      "scheduler": "knitting",
+      "stealing": false,
+      "cold": 578.765096000001,
+      "total": 158.70360700000128,
+      "cpu": 803.939,
+      "cpuPercent": 506.56630633479773,
+      "stallMax": 6.919663999999102,
+      "stallP99": 3.969465999998647,
+      "identical": true
+    }
+  ]
+}

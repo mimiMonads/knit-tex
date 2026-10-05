@@ -1,0 +1,55 @@
+{
+  "input": "/home/mimi/Downloads/knit-tex/examples/tom-sawyer.tex",
+  "runs": 5,
+  "cores": 8,
+  "results": [
+    {
+      "config": "knitting x1",
+      "cold": 561.6647379999999,
+      "total": 280.0266489999999,
+      "paragraphs": 159.68701999999996,
+      "render": 82.71008400000005,
+      "cpu": 442.714,
+      "cpuPercent": 161.078947258406,
+      "stallMax": 33.92009899999994,
+      "stallP99": 2.446519999999964,
+      "identical": true
+    },
+    {
+      "config": "knitting x2",
+      "cold": 438.45328599999993,
+      "total": 219.27520399999958,
+      "paragraphs": 117.73495400000002,
+      "render": 53.63902800000005,
+      "cpu": 640.875,
+      "cpuPercent": 266.04359198614065,
+      "stallMax": 37.321874999999636,
+      "stallP99": 4.866288000000168,
+      "identical": true
+    },
+    {
+      "config": "knitting x3",
+      "cold": 448.7177370000004,
+      "total": 194.36563900000056,
+      "paragraphs": 109.24083500000052,
+      "render": 46.44432599999982,
+      "cpu": 807.769,
+      "cpuPercent": 371.9718016614986,
+      "stallMax": 41.49188100000083,
+      "stallP99": 4.568110000000161,
+      "identical": true
+    },
+    {
+      "config": "knitting x4",
+      "cold": 514.818827,
+      "total": 194.08170700000028,
+      "paragraphs": 110.27101799999946,
+      "render": 45.88114999999925,
+      "cpu": 977.117,
+      "cpuPercent": 502.30511678077124,
+      "stallMax": 44.24348800000007,
+      "stallP99": 6.027618000000075,
+      "identical": true
+    }
+  ]
+}
